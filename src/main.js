@@ -5,7 +5,9 @@ import store from './store'
 import 'amfe-flexible'
 
 import Vant from 'vant'
-import 'vant/lib/index.css'
+// import 'vant/lib/index.css'
+// 引入vant全部样式
+import 'vant/lib/index.less'
 
 import '@/styles/icon.less'
 Vue.use(Vant)
