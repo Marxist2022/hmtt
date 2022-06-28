@@ -8,9 +8,11 @@ import Vant from 'vant'
 // import 'vant/lib/index.css'
 // 引入vant全部样式
 import 'vant/lib/index.less'
-
+import '@/styles/reset.less'
 import '@/styles/icon.less'
+import '@/styles/index.less'
 Vue.use(Vant)
+
 Vue.config.productionTip = false
 
 new Vue({

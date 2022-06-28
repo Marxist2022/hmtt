@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="登录">
+    <van-nav-bar title="登录" @click-left="$router.back()">
       <!-- <template v-slot="left">
         <van-icon name="cross" />
       </template> -->
@@ -31,7 +31,10 @@
           { required: true, message: '请输入验证码' },
           { pattern: /^\d{6}$/, message: '验证码长度必须是6位' },
         ]"
-        ><i class="toutiao toutiao-yanzhengma" slot="left-icon"></i>
+      >
+        <!-- 图标 -->
+        <!-- <i class="toutiao toutiao-yanzhengma" slot="left-icon"></i> -->
+        <MyIcon name="yanzhengma"></MyIcon>
         <template #button>
           <!--//1 倒计时 -->
           <van-count-down
@@ -62,6 +65,8 @@
 </template>
 
 <script>
+import MyIcon from '@/components/MyIcon.vue'
+
 import { getSmsCode, login } from '@/api/user'
 export default {
   created () { },
@@ -81,6 +86,7 @@ export default {
         // res.data.data
         // token有效期2小时， 两种思路 让用户重新登录，refresh_token
         this.$store.commit('setUser', res.data.data)
+        this.$router.push({ name: 'my' })
       } catch (err) {
         console.log(err)
       }
@@ -108,7 +114,7 @@ export default {
   computed: {},
   watch: {},
   filters: {},
-  components: {}
+  components: { MyIcon }
 }
 </script>
 

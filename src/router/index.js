@@ -21,7 +21,7 @@ const routes = [
       // 问答界面
       { path: 'question', component: Question },
       // 我的界面
-      { path: 'my', component: My }]
+      { path: 'my', component: My, name: 'my' }]
   },
   {
     // 登录界面
