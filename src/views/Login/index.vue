@@ -72,13 +72,14 @@ export default {
   created () { },
   data () {
     return {
-      mobile: '13911111111', // 手机号码
+      mobile: '19812345678', // 手机号码
       code: '246810', // 密码
       time: 3 * 1000, // 倒计时事件 毫秒级别
       isCountDownShow: false // 默认不显示倒计时效果
     }
   },
   methods: {
+    // 点击登录事件模块
     async onSubmit (values) {
       try {
         const res = await login(values)
@@ -91,6 +92,7 @@ export default {
         console.log(err)
       }
     },
+    // 验证码事件模块
     async onSendSms () {
       try {
         await this.$refs.from.validate('mobile')

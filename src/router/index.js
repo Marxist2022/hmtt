@@ -6,6 +6,7 @@ const Video = () => import('@/views/Video')
 const Question = () => import('@/views/Question')
 const My = () => import('@/views/My')
 const Login = () => import('@/views/Login')
+const Search = () => import('@/views/Search')
 Vue.use(VueRouter)
 
 const routes = [
@@ -26,6 +27,10 @@ const routes = [
   {
     // 登录界面
     path: '/login', component: Login
+  },
+  {
+    // 搜索界面
+    path: '/search', component: Search
   }
 ]
 
