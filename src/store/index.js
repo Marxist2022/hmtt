@@ -10,7 +10,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {}
+    user: {},
+    searchHistoryList: []
   },
   getters: {
 
@@ -18,6 +19,20 @@ export default new Vuex.Store({
   mutations: {
     setUser (state, payload) {
       state.user = payload
+    },
+    setSearchHistoryList (state, payload) {
+      let arr = state.searchHistoryList
+      arr.unshift(payload)
+      arr = [...new Set(arr)]
+      state.searchHistoryList = arr
+    },
+    // 根据所有删除一个
+    delHistory (state, index) {
+      state.searchHistoryList.splice(index, 1)
+    },
+    // 删除所有
+    delAllHistory (state) {
+      state.searchHistoryList = []
     }
   },
   actions: {
