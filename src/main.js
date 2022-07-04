@@ -13,12 +13,17 @@ import '@/styles/icon.less'
 import '@/styles/index.less'
 
 import * as obj from '@/filters/index'
+
+import FollowUser from '@/components/FollowUser.vue'
+
+Vue.component(FollowUser.name, FollowUser)
+// Vue.component(组件名字, 组件对象)
+
+Vue.config.productionTip = false
 Object.keys(obj).forEach(key => {
   Vue.filter(key, obj[key])
 })
 Vue.use(Vant)
-
-Vue.config.productionTip = false
 
 new Vue({
   router,
