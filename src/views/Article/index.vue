@@ -35,17 +35,7 @@
             <div slot="label" class="publish-date">
               {{ article.pubdate | dateformat }}
             </div>
-            <!-- <van-button
-              class="follow-btn"
-              type="info"
-              color="#3296fa"
-              round
-              size="small"
-              icon="plus"
-              >关注</van-button
-            > -->
-            <!-- ***************************************** -->
-            <!-- <FollowUser :is_followed="article.is_followed"></FollowUser> -->
+
             <!--//1 article.is_followed是布尔值 表示有没有关注 -->
             <!--//1 article.aut_id 是文章作者的id -->
             <FollowUser
@@ -67,6 +57,18 @@
             v-html="article.content"
           ></div>
           <van-divider>正文结束</van-divider>
+          <!-- //1评论 -->
+          <ArticleComment
+            :source="article.art_id"
+            type="a"
+            @set-count="count = $event"
+            :commentList="commentList"
+            @replay-show="
+              comment = $event;
+              isReplayShow = true;
+            "
+            style="height: 100%"
+          ></ArticleComment>
         </div>
         <!-- /加载完成-文章详情 -->
 
@@ -89,11 +91,18 @@
 
     <!-- 底部区域 -->
     <div class="article-bottom" v-if="!isloading && !!article.art_id">
-      <van-button class="comment-btn" type="default" round size="small"
+      <van-button
+        class="comment-btn"
+        type="default"
+        round
+        size="small"
+        @click="addCommentShow = true"
         >写评论</van-button
       >
-      <van-icon name="comment-o" badge="123" color="#777" />
-      <van-icon color="#777" name="star-o" />
+      <van-icon name="comment-o" :badge="count" color="#777" />
+      <CollectArticle
+        :is_collected.sync="article.is_collected"
+      ></CollectArticle>
       <van-icon color="#777" name="good-job-o" />
       <van-icon name="share" color="#777777" @click="showShare = true">
         <van-share-sheet
@@ -105,16 +114,44 @@
       /></van-icon>
     </div>
     <!-- /底部区域 -->
+    <!-- //4写评论弹出框 -->
+    <van-popup v-model="addCommentShow" position="bottom">
+      <!-- 评论组件 -->
+      <AddComment
+        v-if="addCommentShow"
+        :target="article_id"
+        @add-comment="
+          commentList.unshift($event);
+          addCommentShow = false;
+        "
+      ></AddComment>
+      <!-- /评论组件 -->
+    </van-popup>
+    <!-- 回复弹出框 -->
+    <van-popup
+      position="bottom"
+      v-model="isReplayShow"
+      :style="{ height: '100%' }"
+    >
+      <ReplayComment
+        v-if="isReplayShow"
+        :Comment="comment"
+        @close="isReplayShow = false"
+      ></ReplayComment>
+    </van-popup>
   </div>
 </template>
 
 <script>
+import ReplayComment from './components/ReplayComment'
+import ArticleComment from './components/ArticleComment.vue'
+import AddComment from './components/AddComment.vue'
 import 'github-markdown-css'
 import { getArticle } from '@/api/article'
 import { ImagePreview, Toast } from 'vant'
 export default {
   name: 'ArticleIndex',
-  components: {},
+  components: { ArticleComment, AddComment, ReplayComment },
   props: {
     article_id: {
       type: [Number, String],
@@ -125,6 +162,8 @@ export default {
     return {
       isloading: true, // 页面刚打开的时候
       article: {},
+      isReplayShow: false, // 是否显示回复
+      comment: {},
       is404Error: false, // 错误404错误
       showShare: false,
       options: [
@@ -133,7 +172,10 @@ export default {
         { name: '复制链接', icon: 'link' },
         { name: '分享海报', icon: 'poster' },
         { name: '二维码', icon: 'qrcode' }
-      ]
+      ],
+      count: null,
+      addCommentShow: false, // 4 写了评论 微控
+      commentList: []
     }
   },
   computed: {},
@@ -178,6 +220,7 @@ export default {
     })
   },
   mounted () { },
+
   methods: {
     onSelect (option) {
       Toast(option.name)

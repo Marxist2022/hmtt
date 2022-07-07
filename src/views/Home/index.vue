@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- 头部导航栏 -->
+    <!-- 头部导航栏 和搜索-->
     <van-nav-bar title="标题" fixed>
       <!-- 插槽 -->
       <template #title>
@@ -9,18 +9,20 @@
         >
       </template>
     </van-nav-bar>
-    <!-- 头部导航栏 -->
+    <!-- 头部导航栏 和搜索-->
 
-    <!-- 中间滑动标签 -->
-    <van-tabs v-model="active" animated>
+    <!-- 中间滑动标签 横向滑动标签-->
+    <van-tabs v-model="active" animated swipeable border>
       <van-tab
         :title="channel.name"
         v-for="channel in channels"
         :key="channel.id"
       >
+        <!-- //1文章列表 -->
         <ArticleList :id="channel.id"></ArticleList>
+        <!-- //1文章列表 -->
       </van-tab>
-
+      <!-- 汉堡按钮图标 -->
       <template #nav-right>
         <div class="menu" @click="isChannelPannelShow = true">
           <i class="toutiao toutiao-gengduo"></i>
@@ -28,8 +30,8 @@
         <div class="menu1"></div
       ></template>
     </van-tabs>
-    <!-- 中间滑动标签 -->
-    <!-- 图标位置 -->
+    <!-- 中间滑动标签  横向滑动标签-->
+    <!-- 汉堡 点击后弹出的框框 -->
     <van-popup
       v-model="isChannelPannelShow"
       position="bottom"
@@ -37,6 +39,7 @@
       closeable
       close-icon-position="top-left"
     >
+      <!-- 频道列表  汉堡按钮打开的一群小按钮-->
       <ChannelPanel
         :channels="channels"
         :active="active"
@@ -46,7 +49,9 @@
         "
         @del-event="active = $event"
       ></ChannelPanel>
+      <!-- 频道列表 -->
     </van-popup>
+    <!-- 汉堡 图标位置 -->
   </div>
 </template>
 

@@ -41,3 +41,33 @@ export const dleUser = (target) => {
     url: `user/followings/${target}`// 接口
   })
 }
+
+/**
+ * 添加收藏
+ * @param {收藏的目标文章} target
+ * @returns
+ *
+ */
+
+export const addCollect = (target) => {
+  return request({
+    method: 'POST',
+    url: 'article/collections', // 收藏接口
+    data: {
+      target
+    }
+  })
+}
+/**
+ * 取消收藏
+ * @param {收藏的目标文章} target
+ * @returns
+ *
+ */
+
+export const delCollect = (target) => {
+  return request({
+    method: 'DELETE',
+    url: `article/collections/${target}`// 取消收藏接口
+  })
+}

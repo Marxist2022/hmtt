@@ -8,6 +8,7 @@ import Vant from 'vant'
 // import 'vant/lib/index.css'
 // 引入vant全部样式
 import 'vant/lib/index.less'
+
 import '@/styles/reset.less'
 import '@/styles/icon.less'
 import '@/styles/index.less'
@@ -15,7 +16,7 @@ import '@/styles/index.less'
 import * as obj from '@/filters/index'
 
 import FollowUser from '@/components/FollowUser.vue'
-
+import '@/components'
 Vue.component(FollowUser.name, FollowUser)
 // Vue.component(组件名字, 组件对象)
 
