@@ -8,6 +8,7 @@ const My = () => import('@/views/My')
 const Login = () => import('@/views/Login')
 const Search = () => import('@/views/Search')
 const Article = () => import('@/views/Article')
+const User = () => import('@/views/User')
 Vue.use(VueRouter)
 
 const routes = [
@@ -36,7 +37,13 @@ const routes = [
   // 文章 详情页
   {
     path: '/article/:article_id', component: Article, name: 'article', props: true
+  },
+  // 文章 详情页
+  {
+    // 搜索界面
+    path: '/user', component: User
   }
+
 ]
 
 const router = new VueRouter({

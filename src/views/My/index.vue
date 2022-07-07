@@ -12,7 +12,7 @@
           />
           <span>{{ userinfo.name }}</span>
         </div>
-        <div class="button">编辑资料</div>
+        <div class="button" @click="$router.push('/user')">编辑资料</div>
       </div>
       <!-- 登录之后头像下面的粉丝等数据样式 -->
       <ul class="list">

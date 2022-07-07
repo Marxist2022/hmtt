@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- type是类型 为文件，accept接收的文件类型 -->
+    <input type="file" id="file" accept="image/jpeg,image/png,image/gif,image/jpg">
+    <script>
+        var file = document.getElementById('file')
+        file.onchange = function () {
+            console.dir(this.files[0]);//打印上传的文件
+            //this.files[0]得到上传的文件 的对象
+            // URL.createObjectURL(File实例对象 )得到这个文件在内存中临时路径
+            var res = URL.createObjectURL(this.files[0])
+            // console.log(res);
+            var img = document.createElement('img')//创建一个img的dom
+            img.src = res//让img的路径指向游览器缓存的图片路径
+            document.body.append(img)//在body中添加图片
+        }
+    </script>
+</body>
+
+</html>
